@@ -5,9 +5,9 @@ import Link from "next/link"
 import {useRouter} from "next/navigation"
 import React, { useState } from 'react';
 import toast, {Toaster} from "react-hot-toast";
-
+import { cookies } from 'next/headers'
 export default function LoginPage() {
-
+    const cookieStore = cookies()
     const [user, setUser] = useState({
         username:"",
         password:"",
