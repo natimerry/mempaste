@@ -6,46 +6,21 @@ import {useRouter} from "next/navigation"
 import React, { useState } from 'react';
 import toast, {Toaster} from "react-hot-toast";
 
-export default function LoginPage() {
+export default function dashboardPage() {
 
-    const [user, setUser] = useState({
-        username:"",
-        password:"",
-    })
-    const [loading, setLoading] = useState(false);
-    const router = useRouter();
-    const onLogin = async () => {
-        try {
-            setLoading(true);
-
-            const response = await axios.post('@/rust-server/login', user);
-            localStorage.setItem('token', response.data.token);
-            console.log('token saved');
-
-            // const response = true; //await axios.post('@/rustapi/login', user);
-            // if (response == true){ //(response.data.success && response.data == true){
-            //     toast.success('Login successful');
-            //     console.log("Response: "+response);
-            //     router.push('/dashboard');
-            // }
-        } catch (error) {
-            console.log('Login error: ' + error);
-            toast.error('Login failed');
-        } finally {
-            setLoading(false)
-        } 
-    }
+    
 
     return (
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-            <a href="home" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+            <Link href="/" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
                 {/* <img className="w-8 h-8 mr-2" alt="logo" src={String(logo)}/> */}
-                Faketernos    
-            </a>
-            <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                Dashboard - Faketernos    
+            </Link>
+            <div className="grid grid-flow-row grid-cols-2 w-full items-center justify-center gap-5 h-fit">
+            <div className="w-full h-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 justify-self-end">
                 <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                     <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                        Login
+                        Create new server
                     </h1>
                     <form action="#" className="space-y-4 md:space-y-6">
                         <div>
@@ -53,8 +28,6 @@ export default function LoginPage() {
                             <input 
                                 id="username"
                                 type="text"
-                                value={user.username}
-                                onChange={(e) => setUser({...user, username: e.target.value})}
                                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                 placeholder="Username" 
                                 required/>
@@ -64,25 +37,26 @@ export default function LoginPage() {
                             <input 
                                 id="password"
                                 type="password"
-                                value={user.password}
-                                onChange={(e) => setUser({...user, password: e.target.value})}
                                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                 placeholder="Username" 
                                 required/>
                         </div>
                         <button 
                             type="submit"
-                            onClick={onLogin} 
                             className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                                Login
+                                Create Server
                         </button>
                         <Toaster/>
-                        <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                            Don't have an account? <Link href="signup" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up here</Link>
-                        </p>
                     </form>
                 </div>
+                
             </div>
+            <div className="w-full h-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 justify-self-start">
+                
+            </div>
+            </div>
+
+
         </div>
     )
 }

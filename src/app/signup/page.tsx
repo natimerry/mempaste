@@ -1,45 +1,44 @@
 "use client"
 
 import axios from "axios";
-// import Link from "next/link"
+import { isWebpackDefaultLayer } from "next/dist/build/utils";
+import Link from "next/link"
 import {useRouter} from "next/navigation";
 import React, { useEffect } from "react";
-import toast from "react-hot-toast";
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function SignupPage() {
-    
-    let validation = ''
     const router = useRouter();
     const [user, setUser] = React.useState({
         username:"",
         password:"",
+        email:"",
         confirmPassword:""
     })
     
     const [loading, setLoading] = React.useState(false)
 
     const onSignup = async () => {
+        console.log('running onSignup')
         try {
             setLoading(true)
-            const token:any =  process.env.TOKEN_SECRET_KEY;    //await axios.post("api/users/signup", user)
-            console.log("Signup Details: ", token.data);
-            toast.success("Signup Success")
-            router.push("/login")
+            const token:any = 'trolled' //await axios.post("api/users/signup", user)
+            toast.success("Signup Success");
+            console.log("Signup Details: ", token);
+            router.push('/login');
         } catch (error:any) {
-            console.log("Signup failed", error.message)
-            toast.error("Signup failed!")
-        }finally {
-            setLoading(false)
+            toast.error("Signup failed!");
+            console.log("Signup failed", error.message);
+        } finally {
+            setLoading(false);
         }
     }
     const [buttonDisabled, setButtonDisabled] = React.useState(false)
     useEffect(() => {
         if (user.password != user.confirmPassword || user.password == ""){
             setButtonDisabled(true);
-            validation = ''
         } else {
             setButtonDisabled(false);
-            validation = 'Password and confirmation is same'
             console.log("password and confirm same")
         }
     }, [user]);
@@ -125,6 +124,17 @@ export default function SignupPage() {
                                 required/>
                         </div>
                         <div>
+                            <label className="block mb-2 tet-sm font-medium text-grey-900 dark:text-white">Email</label>
+                            <input 
+                                id="email"
+                                type="email"
+                                value={user.email}
+                                onChange={(e) => setUser({...user, email: e.target.value})}
+                                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                placeholder="Email" 
+                                required/>
+                        </div>
+                        <div>
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                             <input 
                                 id="password"
@@ -153,8 +163,9 @@ export default function SignupPage() {
                         style={buttonDisabled ? styles.disabledButton : styles.enabledButton}>
                             {loading ? "Processing..." : "Create an account"}
                         </button>
+                        <Toaster/>
                         <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                            Already have an account? <a href="login" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</a>
+                            Already have an account? <Link href="/login" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</Link>
                         </p>
                     </form>
                 </div>
