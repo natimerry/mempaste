@@ -6,7 +6,6 @@ import Link from "next/link"
 import {useRouter} from "next/navigation";
 import React, { useEffect } from "react";
 import toast, { Toaster } from 'react-hot-toast';
-
 export default function SignupPage() {
     const router = useRouter();
     const [user, setUser] = React.useState({
@@ -22,12 +21,15 @@ export default function SignupPage() {
         console.log('running onSignup')
         console.log('running onSignup')
         try {
+            let api_endpoint = process.env.NEXT_PUBLIC_API_URL?.concat("create_user");
+            // console.log(api_endpoint);
             setLoading(true)
-            const token:any = await axios.post("api/users/signup", user)
-            localStorage.setItem('cookie', token.data.cookies);
+            const token:any = await axios.post(api_endpoint!, user,{withCredentials:true});
+            // localStorage.setItem('cookie', token.data.cookies);
             toast.success("Signup Success");
-            console.log("Signup Details: ", token);
-            router.push('/login');
+            // console.log("Signup Details: ", token);
+            console.log(token.data);
+            // router.push('/login');
         } catch (error:any) {
             toast.error("Signup failed!");
             console.log("Signup failed", error.message);
@@ -159,7 +161,7 @@ export default function SignupPage() {
                                 required/>
                         </div>
                         <button 
-                        type="submit"
+                        type="button"
                         onClick={onSignup}
                         className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                         style={buttonDisabled ? styles.disabledButton : styles.enabledButton}>
