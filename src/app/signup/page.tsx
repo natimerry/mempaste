@@ -3,8 +3,6 @@
 import axios from "axios";
 import { isWebpackDefaultLayer } from "next/dist/build/utils";
 import Link from "next/link"
-import { isWebpackDefaultLayer } from "next/dist/build/utils";
-import Link from "next/link"
 import {useRouter} from "next/navigation";
 import React, { useEffect } from "react";
 import toast, { Toaster } from 'react-hot-toast';
@@ -31,10 +29,6 @@ export default function SignupPage() {
             console.log("Signup Details: ", token);
             router.push('/login');
         } catch (error:any) {
-            toast.error("Signup failed!");
-            console.log("Signup failed", error.message);
-        } finally {
-            setLoading(false);
             toast.error("Signup failed!");
             console.log("Signup failed", error.message);
         } finally {
@@ -143,17 +137,6 @@ export default function SignupPage() {
                                 required/>
                         </div>
                         <div>
-                            <label className="block mb-2 tet-sm font-medium text-grey-900 dark:text-white">Email</label>
-                            <input 
-                                id="email"
-                                type="email"
-                                value={user.email}
-                                onChange={(e) => setUser({...user, email: e.target.value})}
-                                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                placeholder="Email" 
-                                required/>
-                        </div>
-                        <div>
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                             <input 
                                 id="password"
@@ -182,7 +165,6 @@ export default function SignupPage() {
                         style={buttonDisabled ? styles.disabledButton : styles.enabledButton}>
                             {loading ? "Processing..." : "Create an account"}
                         </button>
-                        <Toaster/>
                         <Toaster/>
                         <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                             Already have an account? <Link href="/login" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</Link>
