@@ -1,5 +1,6 @@
 "use client"
 
+import { getAuth } from "@/action";
 import axios from "axios";
 import { isWebpackDefaultLayer } from "next/dist/build/utils";
 import Link from "next/link"
@@ -19,16 +20,17 @@ export default function SignupPage() {
 
     const onSignup = async () => {
         console.log('running onSignup')
-        console.log('running onSignup')
         try {
             let api_endpoint = process.env.NEXT_PUBLIC_API_URL?.concat("create_user");
             // console.log(api_endpoint);
             setLoading(true)
             const token:any = await axios.post(api_endpoint!, user,{withCredentials:true});
             // localStorage.setItem('cookie', token.data.cookies);
+            const auth = await getAuth('Auth-Token');
             toast.success("Signup Success");
             // console.log("Signup Details: ", token);
             console.log(token.data);
+            console.log('Auth-token: ' + auth!.value);
             // router.push('/login');
         } catch (error:any) {
             toast.error("Signup failed!");

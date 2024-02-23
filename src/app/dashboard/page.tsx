@@ -1,5 +1,6 @@
 "use client"
 
+import { getAuth } from "@/action";
 import axios from "axios"
 import Link from "next/link"
 import {useRouter} from "next/navigation"
@@ -7,8 +8,11 @@ import React, { useState } from 'react';
 import toast, {Toaster} from "react-hot-toast";
 
 export default function dashboardPage() {
-
-    
+    const route = useRouter();
+    const auth = getAuth('Auth-Token');
+    if (!auth){
+        route.push('/login');
+    }
 
     return (
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
