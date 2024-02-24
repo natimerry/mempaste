@@ -1,14 +1,12 @@
 "use client"
 
-import { getAuth } from "@/action";
 import axios from "axios"
 import Link from "next/link"
 import {useRouter} from "next/navigation"
 import React, { useState } from 'react';
-import toast, {Toaster} from "react-hot-toast";
-// import { cookies } from 'next/headers'
+import toast from "react-hot-toast";
 export default function LoginPage() {
-    // const cookieStore = cookies()
+    const router = useRouter();
     const [user, setUser] = useState({
         username:"",
         password:""
@@ -19,14 +17,16 @@ export default function LoginPage() {
         let api_endpoint = process.env.NEXT_PUBLIC_API_URL?.concat("login");
         setLoading(true);
         axios
-            .post("http://localhost:9090/login", user, {withCredentials:true, headers:{'Accept':'application/json',timeout:200}})
+            .post(api_endpoint!, user, {withCredentials:true, headers:{'Accept':'application/json',timeout:200}})
             .then(function (response){
+                    toast.success("Login successful");
                     console.log(response.data);
+                    router.push('/dashboard')   
                     // toast.success("Logged in");
                 })
             .catch(function (error){
-                 console.log(error);
-                //  toast(error.response.data);
+                toast.error("Login failed!")
+                toast(error.response.data);
             })
             .finally(() => {
                  setLoading(false);

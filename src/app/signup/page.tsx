@@ -1,10 +1,10 @@
 "use client"
 
-import { getAuth } from "@/action";
 import axios from "axios";
 import { isWebpackDefaultLayer } from "next/dist/build/utils";
 import Link from "next/link"
 import {useRouter} from "next/navigation";
+import { NextRequest, NextResponse } from "next/server";
 import React, { useEffect } from "react";
 import toast from 'react-hot-toast';
 export default function SignupPage() {
@@ -51,7 +51,6 @@ export default function SignupPage() {
         disabledButton: {
             cursor: "not-allowed",
             pointerEvents: "none"
-
         },
         enabledButton: {
             cursor: "pointer"
