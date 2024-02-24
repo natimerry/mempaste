@@ -19,7 +19,7 @@ export default function LoginPage() {
         let api_endpoint = process.env.NEXT_PUBLIC_API_URL?.concat("login");
         setLoading(true);
         axios
-            .post("http://localhost:9090/login", user, {withCredentials:true, headers:{'Accept':'application/json'}})
+            .post("http://localhost:9090/login", user, {withCredentials:true, headers:{'Accept':'application/json',timeout:200}})
             .then(function (response){
                     console.log(response.data);
                     // toast.success("Logged in");
@@ -67,7 +67,7 @@ export default function LoginPage() {
                                 required/>
                         </div>
                         <button 
-                            type="submit"
+                            type="button"
                             onClick={onLogin} 
                             className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                                 {loading ? "Processing..." : "Login"}
