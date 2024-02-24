@@ -6,7 +6,7 @@ import { isWebpackDefaultLayer } from "next/dist/build/utils";
 import Link from "next/link"
 import {useRouter} from "next/navigation";
 import React, { useEffect } from "react";
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 export default function SignupPage() {
     const router = useRouter();
     const [user, setUser] = React.useState({
@@ -15,30 +15,29 @@ export default function SignupPage() {
         email:"",
         confirmPassword:""
     })
-    
     const [loading, setLoading] = React.useState(false)
-
     const onSignup = async () => {
         console.log('running onSignup')
-        try {
-            let api_endpoint = process.env.NEXT_PUBLIC_API_URL?.concat("create_user");
-            // console.log(api_endpoint);
-            setLoading(true)
-            const token:any = await axios.post(api_endpoint!, user,{withCredentials:true});
-            // localStorage.setItem('cookie', token.data.cookies);
-            const auth = await getAuth('Auth-Token');
-            toast.success("Signup Success");
-            // console.log("Signup Details: ", token);
-            console.log(token.data);
-            console.log('Auth-token: ' + auth!.value);
-            // router.push('/login');
-        } catch (error:any) {
-            toast.error("Signup failed!");
-            console.log("Signup failed", error.message);
-        } finally {
-            setLoading(false);
-        }
+        let api_endpoint = process.env.NEXT_PUBLIC_API_URL?.concat("create_user");
+        setLoading(true);
+        axios
+            .post(api_endpoint!, user,{withCredentials:true})
+            .then(function (response){
+                    console.log(response.status);
+                    toast.success("Account Created");
+                    router.push('/login');
+                }
+            )
+            .catch(function(error){
+                 toast.error("Account creation failed");
+                 toast(error.response.data);
+            })
+            .finally(() => {
+                 setLoading(false);
+            })
     }
+
+    
     const [buttonDisabled, setButtonDisabled] = React.useState(false)
     useEffect(() => {
         if (user.password != user.confirmPassword || user.password == ""){
@@ -117,7 +116,7 @@ export default function SignupPage() {
                     <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Create and account
                     </h1>
-                    <form action="#" className="space-y-4 md:space-y-6">
+                    <form className="space-y-4 md:space-y-6">
                         <div>
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Username</label>
                             <input 
@@ -169,7 +168,6 @@ export default function SignupPage() {
                         style={buttonDisabled ? styles.disabledButton : styles.enabledButton}>
                             {loading ? "Processing..." : "Create an account"}
                         </button>
-                        <Toaster/>
                         <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                             Already have an account? <Link href="/login" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</Link>
                         </p>

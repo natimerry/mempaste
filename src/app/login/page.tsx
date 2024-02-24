@@ -11,32 +11,27 @@ export default function LoginPage() {
     // const cookieStore = cookies()
     const [user, setUser] = useState({
         username:"",
-        password:"",
+        password:""
     })
     const [loading, setLoading] = useState(false);
-    const router = useRouter();
     const onLogin = async () => {
-        try {
-            setLoading(true);
-
-            const response = await axios.post('@/rust-server/login', user);
-            localStorage.setItem('token', response.data.token);
-            console.log('token saved');
-
-            // const response = true; //await axios.post('@/rustapi/login', user);
-            // if (response == true){ //(response.data.success && response.data == true){
-            //     toast.success('Login successful');
-            //     console.log("Response: "+response);
-            //     router.push('/dashboard');
-            // }
-        } catch (error) {
-            console.log('Login error: ' + error);
-            toast.error('Login failed');
-        } finally {
-            setLoading(false)
-        } 
+        console.log("running onlogin");
+        let api_endpoint = process.env.NEXT_PUBLIC_API_URL?.concat("login");
+        setLoading(true);
+        axios
+            .post("http://localhost:9090/login", user, {withCredentials:true, headers:{'Accept':'application/json'}})
+            .then(function (response){
+                    console.log(response.data);
+                    // toast.success("Logged in");
+                })
+            .catch(function (error){
+                 console.log(error);
+                //  toast(error.response.data);
+            })
+            .finally(() => {
+                 setLoading(false);
+            })
     }
-
     return (
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
             <a href="home" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
@@ -48,7 +43,7 @@ export default function LoginPage() {
                     <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Login
                     </h1>
-                    <form action="#" className="space-y-4 md:space-y-6">
+                    <form className="space-y-4 md:space-y-6">
                         <div>
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Username</label>
                             <input 
@@ -66,18 +61,17 @@ export default function LoginPage() {
                                 id="password"
                                 type="password"
                                 value={user.password}
-                                onChange={(e) => setUser({...user, password: e.target.value})}
+                                onChange={(e) => setUser({...user, password: e.target.value})} //onChange={(e) => setUser({...user, password: e.target.value})}
                                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                placeholder="Username" 
+                                placeholder="Password" 
                                 required/>
                         </div>
                         <button 
                             type="submit"
                             onClick={onLogin} 
                             className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                                Login
+                                {loading ? "Processing..." : "Login"}
                         </button>
-                        <Toaster/>
                         <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                             Don't have an account? <Link href="signup" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up here</Link>
                         </p>
@@ -86,4 +80,7 @@ export default function LoginPage() {
             </div>
         </div>
     )
-}
+
+    }
+
+
