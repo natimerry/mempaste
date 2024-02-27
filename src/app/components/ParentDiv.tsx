@@ -6,7 +6,7 @@ interface IProps {
 }
 export default function RootContainer({children}: IProps) {
   return (
-    <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-svh sm:h-screen lg:py-0 overflow-hidden">
+    <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-svh sm:h-4/5 lg:py-0 overflow-hidden">
         {children}
     </div>
 
