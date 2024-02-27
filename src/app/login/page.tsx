@@ -9,8 +9,8 @@ import FormTextInput from "../components/InputForm";
 import SubmitButton from "../components/SubmitButton";
 import Header from "../components/Header";
 import RootContainer from "../components/ParentDiv";
-import FlexContainer from "../components/FlexHolder";
-import Dialog from "../components/Dialog";
+import SignupFlexContainer from "../components/SignupFlexContainer";
+import SignupBox from "../components/SignupBox";
 export default function LoginPage() {
     const router = useRouter();
     const [user, setUser] = useState({
@@ -41,8 +41,8 @@ export default function LoginPage() {
     return (
         <RootContainer>
             <Header />
-            <FlexContainer>
-                <Dialog>
+            <SignupFlexContainer>
+                <SignupBox>
                     <h1 className="text-4xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Login
                     </h1>
@@ -65,8 +65,8 @@ export default function LoginPage() {
                             Don't have an account? <Link href="signup" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up here</Link>
                         </p>
                     </form>
-                </Dialog>
-            </FlexContainer>
+                </SignupBox>
+            </SignupFlexContainer>
         </RootContainer>)
 
 }

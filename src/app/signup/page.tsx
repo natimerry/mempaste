@@ -12,7 +12,7 @@ import SubmitButton from "../components/SubmitButton";
 import Heading from "../components/Header";
 import { Root } from "postcss";
 import RootContainer from "../components/ParentDiv";
-import Dialog from "../components/FlexHolder";
+import Dialog from "../components/SignupFlexContainer";
 export default function SignupPage() {
     const router = useRouter();
     const [user, setUser] = React.useState({
