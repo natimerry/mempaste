@@ -1,0 +1,14 @@
+'use client'
+
+import { useState } from 'react';
+interface IProps {
+  children: React.ReactNode;
+}
+export default function FlexContainer({children}: IProps) {
+
+    return (
+        <div className="w-full bg-gray-700 shadow dark:border md:mt-0 sm:max-w-md xl:p-0 rounded-lg  dark:ring-gray-700">
+                {children}
+            </div>
+    );
+}
