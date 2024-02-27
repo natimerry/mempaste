@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <section className="bg-gray-50  dark:bg-zinc-950 h-screen">
+        <section className="bg-gray-50 h-svh dark:bg-zinc-950">
           {children}
         </section>
         <Toaster/>
