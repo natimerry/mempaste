@@ -7,10 +7,7 @@ import React, { useState } from 'react';
 import toast from "react-hot-toast";
 import TextInput from "../components/InputForm";
 import SubmitButton from "../components/SubmitButton";
-import Header from "../components/Header";
-import RootContainer from "../components/ParentDiv";
 import SignupFlexContainer from "../components/SignupFlexContainer";
-import SignupBox from "../components/SignupBox";
 export default function LoginPage() {
     const router = useRouter();
     const [user, setUser] = useState({
@@ -39,10 +36,7 @@ export default function LoginPage() {
             })
     }
     return (
-        <RootContainer>
-            <Header />
             <SignupFlexContainer>
-                <SignupBox>
                     <h1 className="text-4xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Login
                     </h1>
@@ -57,18 +51,15 @@ export default function LoginPage() {
                             onchange_func={(e: { target: { value: any; }; }) => setUser({ ...user, password: e.target.value })}>
                         </TextInput>
 
-
-                        <SubmitButton on_click={onLogin}>
-                            {loading ? "Processing..." : "Login"}
+                        <SubmitButton type="submit">
+                            Login
                         </SubmitButton>
                         <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                             Don't have an account? <Link href="signup" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up here</Link>
                         </p>
                     </form>
-                </SignupBox>
             </SignupFlexContainer>
-        </RootContainer>)
-
+    )
 }
 
 

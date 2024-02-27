@@ -1,16 +1,13 @@
 'use client'
 
-import { useState } from 'react';
-
-
-type ChildComponentProps = { disabled?: boolean, style?: any, on_click: any, children?: React.ReactNode };
-export default function SubmitButton({ disabled, style, on_click, children }: ChildComponentProps) {
+type ChildComponentProps = { type: string, disabled?: boolean, style?: any, on_click?: any, children?: React.ReactNode };
+export default function SubmitButton({ disabled, style, on_click, children, type }: ChildComponentProps) {
 
     return (
         <div>
             <button
                 disabled={disabled}
-                type="button"
+                type={type as "button" | "submit" | "reset"}
                 onClick={on_click}
                 className="w-full  focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-black text-white
                 disabled:bg-gray-300

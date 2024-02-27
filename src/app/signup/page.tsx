@@ -1,67 +1,66 @@
-"use client"
+"use server"
 
 import axios from "axios";
-import { isWebpackDefaultLayer } from "next/dist/build/utils";
-import Link from "next/link"
-import { useRouter } from "next/navigation";
-import { NextRequest, NextResponse } from "next/server";
-import React, { useEffect } from "react";
+import React from "react";
 import toast from 'react-hot-toast';
-import TextInput from "../components/InputForm";
-import SubmitButton from "../components/SubmitButton";
-import Heading from "../components/Header";
-import { Root } from "postcss";
 import RootContainer from "../components/ParentDiv";
 import Dialog from "../components/SignupFlexContainer";
-export default function SignupPage() {
-    const router = useRouter();
-    const [user, setUser] = React.useState({
-        username: "",
-        password: "",
-        email: "",
-        confirmPassword: ""
-    })
-    const [loading, setLoading] = React.useState(false)
-    const onSignup = async () => {
+import { FormEvent } from 'react'
+import { NextRequest, NextResponse } from "next/server";
+import SignupForm from "./form";
+
+
+
+interface LoginDetails {
+    username: string;
+    email: string;
+    password: string;
+}
+export default async function SignupPage(request: NextRequest) {
+    
+
+    const onSignup = async (event: FormEvent<HTMLFormElement>) => {
+        "use server"
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget)
+        let data: LoginDetails = {
+            username: formData.get('username')?.toString()!,
+            email: formData.get('email')?.toString()!,
+            password: formData.get('password')?.toString()!
+        };
         console.log('running onSignup')
+        console.log(data)
         let api_endpoint = process.env.NEXT_PUBLIC_API_URL?.concat("create_user");
-        setLoading(true);
         axios
-            .post(api_endpoint!, user, { withCredentials: true })
+            .post(api_endpoint!, data, { withCredentials: true })
             .then(function (response) {
                 console.log(response.status);
                 toast.success("Account Created");
-                router.push('/login');
-            }
-            )
+                NextResponse.redirect(new URL('/login', request.url))
+                })
             .catch(function (error) {
                 toast.error("Account creation failed");
                 toast(error.response.data);
             })
-            .finally(() => {
-                setLoading(false);
-            })
     }
-
-
-    const [buttonDisabled, setButtonDisabled] = React.useState(false)
-    useEffect(() => {
-        if (user.password != user.confirmPassword || user.password == "") {
-            setButtonDisabled(true);
-        } else {
-            setButtonDisabled(false);
-            console.log("password and confirm same")
-        }
-    }, [user]);
-    const styles = {
-        disabledButton: {
-            cursor: "not-allowed",
-            pointerEvents: "none"
-        },
-        enabledButton: {
-            cursor: "pointer"
-        }
-    }
+    
+    // useEffect(() => {
+    //     if (user.password != user.confirmPassword || user.password == "") {
+    //         setButtonDisabled(true);
+    //     } else {
+    //         setButtonDisabled(false);
+    //         console.log("password and confirm same")
+    //     }
+    // }, [user]);
+    // const styles = {
+    //     disabledButton: {
+    //         cursor: "not-allowed",
+    //         pointerEvents: "none"
+    //     },
+    //     enabledButton: {
+    //         cursor: "pointer"
+    //     }
+    // }
 
 
     // const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -112,40 +111,18 @@ export default function SignupPage() {
 
     return (
         <RootContainer>
-            <Heading />
-
+            <a className="py-4 sm:py-10 items-center text-4xl md:text-5xl font-bold bg-gradient-to-br from-slate-100 to-slate-600 animate-text inline-block text-transparent bg-clip-text">
+                {/* <img className="w-8 h-8 mr-2" alt="logo" src={String(logo)}/> */}
+                Nexus Console
+            </a>
             <Dialog>
                 <div className="p-6 space-y-4 md:space-y-6 sm:p-8 dark:bg-zinc-900 bg-slate-50 rounded-lg border-2  border-gray-700 dark:border-white ">
                     <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Create and account
                     </h1>
-                    <form className="space-y-4 md:space-y-6">
-                        <TextInput type="text" label="Your Username" value={user.username}
-                            onchange_func={(e: { target: { value: any; }; }) => setUser({ ...user, username: e.target.value })} >
-                        </TextInput>
-
-                        {/* EMAIL INPUT */}
-                        <TextInput type="text" label="Email" value={user.email}
-                            onchange_func={(e: { target: { value: any; }; }) => setUser({ ...user, email: e.target.value })}>
-                        </TextInput>
-
-                        {/* Password input */}
-                        <TextInput type="password" label="Password" value={user.password}
-                            onchange_func={(e: { target: { value: any; }; }) => setUser({ ...user, password: e.target.value })}>
-                        </TextInput>
-                        {/* Confirm password input */}
-                        <TextInput type="password" label="Confirm Password" value={user.confirmPassword}
-                            onchange_func={(e: { target: { value: any; }; }) => setUser({ ...user, confirmPassword: e.target.value })}>
-                        </TextInput>
-
-                        <SubmitButton on_click={onSignup} disabled={buttonDisabled}>
-                            {loading ? "Processing..." : "Create an account"}
-                        </SubmitButton>
-                        <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                            Already have an account? <Link href="/login" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</Link>
-                        </p>
-                    </form>
+                    <SignupForm  signup_func={onSignup}/>
                 </div>
-            </Dialog>        </RootContainer>
+            </Dialog>        
+        </RootContainer>
     )
 }
