@@ -5,6 +5,7 @@ import Link from "next/link"
 import {useRouter} from "next/navigation"
 import React, { useState } from 'react';
 import toast from "react-hot-toast";
+import FormTextInput from "../components/InputForm";
 export default function LoginPage() {
     const router = useRouter();
     const [user, setUser] = useState({
@@ -38,34 +39,22 @@ export default function LoginPage() {
                 {/* <img className="w-8 h-8 mr-2" alt="logo" src={String(logo)}/> */}
                 Faketernos    
             </a>
+            
             <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                 <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                     <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Login
                     </h1>
                     <form className="space-y-4 md:space-y-6">
-                        <div>
-                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Username</label>
-                            <input 
-                                id="username"
-                                type="text"
-                                value={user.username}
-                                onChange={(e) => setUser({...user, username: e.target.value})}
-                                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                placeholder="Username" 
-                                required/>
-                        </div>
-                        <div>
-                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                            <input 
-                                id="password"
-                                type="password"
-                                value={user.password}
-                                onChange={(e) => setUser({...user, password: e.target.value})} //onChange={(e) => setUser({...user, password: e.target.value})}
-                                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                placeholder="Password" 
-                                required/>
-                        </div>
+             
+                        <FormTextInput type="text" label="Email" value={user.username}
+                            onchange_func={(e: { target: { value: any; }; }) => setUser({ ...user, username: e.target.value })}>
+                        </FormTextInput>
+
+
+                        <FormTextInput type="password" label="Email" value={user.password}
+                            onchange_func={(e: { target: { value: any; }; }) => setUser({ ...user, username: e.target.value })}>
+                        </FormTextInput>
                         <button 
                             type="button"
                             onClick={onLogin} 
