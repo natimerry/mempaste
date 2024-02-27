@@ -5,7 +5,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import React, { useState } from 'react';
 import toast from "react-hot-toast";
-import FormTextInput from "../components/InputForm";
+import TextInput from "../components/InputForm";
 import SubmitButton from "../components/SubmitButton";
 import Header from "../components/Header";
 import RootContainer from "../components/ParentDiv";
@@ -48,14 +48,14 @@ export default function LoginPage() {
                     </h1>
                     <form className="space-y-4 md:space-y-6">
 
-                        <FormTextInput type="text" label="Your Username" value={user.username}
+                        <TextInput type="text" label="Your Username" value={user.username}
                             onchange_func={(e: { target: { value: any; }; }) => setUser({ ...user, username: e.target.value })}>
-                        </FormTextInput>
+                        </TextInput>
 
 
-                        <FormTextInput type="password" label="Password" value={user.password}
+                        <TextInput type="password" label="Password" value={user.password}
                             onchange_func={(e: { target: { value: any; }; }) => setUser({ ...user, password: e.target.value })}>
-                        </FormTextInput>
+                        </TextInput>
 
 
                         <SubmitButton on_click={onLogin}>

@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 
 type ChildComponentProps = { type: string, label: string; value: string; onchange_func?: any };
-export default function FormTextInput({type, label, value, onchange_func }: ChildComponentProps) {
+export default function TextInput({type, label, value, onchange_func }: ChildComponentProps) {
 
   return (
     <div>

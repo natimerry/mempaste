@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 import React, { useEffect } from "react";
 import toast from 'react-hot-toast';
-import FormTextInput from "../components/InputForm";
+import TextInput from "../components/InputForm";
 import SubmitButton from "../components/SubmitButton";
 import Heading from "../components/Header";
 import { Root } from "postcss";
@@ -120,23 +120,23 @@ export default function SignupPage() {
                         Create and account
                     </h1>
                     <form className="space-y-4 md:space-y-6">
-                        <FormTextInput type="text" label="Your Username" value={user.username}
+                        <TextInput type="text" label="Your Username" value={user.username}
                             onchange_func={(e: { target: { value: any; }; }) => setUser({ ...user, username: e.target.value })} >
-                        </FormTextInput>
+                        </TextInput>
 
                         {/* EMAIL INPUT */}
-                        <FormTextInput type="text" label="Email" value={user.email}
+                        <TextInput type="text" label="Email" value={user.email}
                             onchange_func={(e: { target: { value: any; }; }) => setUser({ ...user, email: e.target.value })}>
-                        </FormTextInput>
+                        </TextInput>
 
                         {/* Password input */}
-                        <FormTextInput type="password" label="Password" value={user.password}
+                        <TextInput type="password" label="Password" value={user.password}
                             onchange_func={(e: { target: { value: any; }; }) => setUser({ ...user, password: e.target.value })}>
-                        </FormTextInput>
+                        </TextInput>
                         {/* Confirm password input */}
-                        <FormTextInput type="password" label="Confirm Password" value={user.confirmPassword}
+                        <TextInput type="password" label="Confirm Password" value={user.confirmPassword}
                             onchange_func={(e: { target: { value: any; }; }) => setUser({ ...user, confirmPassword: e.target.value })}>
-                        </FormTextInput>
+                        </TextInput>
 
                         <SubmitButton on_click={onSignup} disabled={buttonDisabled}>
                             {loading ? "Processing..." : "Create an account"}
