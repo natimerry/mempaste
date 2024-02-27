@@ -9,6 +9,10 @@ import React, { useEffect } from "react";
 import toast from 'react-hot-toast';
 import FormTextInput from "../components/InputForm";
 import SubmitButton from "../components/SubmitButton";
+import Heading from "../components/Header";
+import { Root } from "postcss";
+import RootContainer from "../components/ParentDiv";
+import Dialog from "../components/FlexHolder";
 export default function SignupPage() {
     const router = useRouter();
     const [user, setUser] = React.useState({
@@ -107,12 +111,10 @@ export default function SignupPage() {
     // }
 
     return (
-        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-            <a href="home" className="py-10 items-center text-8xl font-semibold bg-gradient-to-r from-cyan-400 via-blue-400 to-pink-400 animate-text inline-block text-transparent bg-clip-text">
-                {/* <img className="w-8 h-8 mr-2" alt="logo" src={String(logo)}/> */}
-                Nexus Console
-            </a>
-            <div className="w-full bg-gray-700 shadow dark:border md:mt-0 sm:max-w-md xl:p-0 rounded-lg  dark:ring-gray-700">
+        <RootContainer>
+            <Heading />
+
+            <Dialog>
                 <div className="p-6 space-y-4 md:space-y-6 sm:p-8 dark:bg-zinc-900 bg-slate-50 rounded-lg border-2  border-gray-700 dark:border-white ">
                     <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Create and account
@@ -144,7 +146,6 @@ export default function SignupPage() {
                         </p>
                     </form>
                 </div>
-            </div>
-        </div>
+            </Dialog>        </RootContainer>
     )
 }

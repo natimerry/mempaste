@@ -7,6 +7,10 @@ import React, { useState } from 'react';
 import toast from "react-hot-toast";
 import FormTextInput from "../components/InputForm";
 import SubmitButton from "../components/SubmitButton";
+import Header from "../components/Header";
+import RootContainer from "../components/ParentDiv";
+import FlexContainer from "../components/FlexHolder";
+import Dialog from "../components/Dialog";
 export default function LoginPage() {
     const router = useRouter();
     const [user, setUser] = useState({
@@ -35,14 +39,10 @@ export default function LoginPage() {
             })
     }
     return (
-        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-            <a href="home" className="py-10 items-center text-8xl font-semibold bg-gradient-to-r from-cyan-400 via-blue-400 to-pink-400 animate-text inline-block text-transparent bg-clip-text">
-                {/* <img className="w-8 h-8 mr-2" alt="logo" src={String(logo)}/> */}
-                Nexus Console
-            </a>
-
-            <div className="w-full bg-gray-300 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 ring-gray-700">
-                <div className="p-6 space-y-4 md:space-y-6 sm:p-8 dark:bg-zinc-900 bg-slate-50 rounded-lg border-2  border-gray-700 dark:border-white">
+        <RootContainer>
+            <Header />
+            <FlexContainer>
+                <Dialog>
                     <h1 className="text-4xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Login
                     </h1>
@@ -54,7 +54,7 @@ export default function LoginPage() {
 
 
                         <FormTextInput type="password" label="Password" value={user.password}
-                            onchange_func={(e: { target: { value: any; }; }) => setUser({ ...user, username: e.target.value })}>
+                            onchange_func={(e: { target: { value: any; }; }) => setUser({ ...user, password: e.target.value })}>
                         </FormTextInput>
 
 
@@ -65,10 +65,9 @@ export default function LoginPage() {
                             Don't have an account? <Link href="signup" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up here</Link>
                         </p>
                     </form>
-                </div>
-            </div>
-        </div>
-    )
+                </Dialog>
+            </FlexContainer>
+        </RootContainer>)
 
 }
 
