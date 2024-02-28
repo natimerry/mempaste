@@ -9,20 +9,20 @@ export default function SubmitButton({ disabled, style, on_click, children, type
                 disabled={disabled}
                 type={type as "button" | "submit" | "reset"}
                 onClick={on_click}
-                className="w-full  focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-black text-white
+                className="w-full  focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-pink-400 text-black
                 disabled:bg-gray-300
                 disabled:hover:bg-gray-300
                 disabled:hover:text-black
                 disabled:text-black 
-                dark:text-black
+                dark:text-white
                 transition-all duration-[250ms] ease-out    
                 
-                hover:bg-gray-300
-                hover:text-black
+                hover:bg-pink-800
+                hover:text-white
                 
-                dark:bg-white
-                dark:hover:text-white
-                dark:hover:bg-black
+                dark:bg-pink-900
+                dark:hover:text-black
+                dark:hover:bg-pink-600
                 "
 
 
