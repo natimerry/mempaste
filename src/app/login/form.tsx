@@ -17,23 +17,21 @@ export default function SignupForm({signup_func}: IProps) {
         <TextInput name="username" type="text" label="Your Username">
         </TextInput>
 
-        {/* EMAIL INPUT */}
+        {/* EMAIL INPUT
         <TextInput name="email" type="email" label="Email">
-        </TextInput>
+        </TextInput> */}
 
         {/* Password input */}
         <TextInput name="password" type="password" label="Password">
         </TextInput>
-        {/* Confirm password input */}
+        {/* Confirm password input
         <TextInput type="password" label="Confirm Password">
-        </TextInput>
+        </TextInput> */}
 
         <SubmitButton type='submit'>
-            Create an account
+          Login
         </SubmitButton>
-        <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-            Already have an account? <Link href="/login" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</Link>
-        </p>
+
     </form>
   );
 }
