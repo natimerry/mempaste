@@ -2,14 +2,17 @@
 
 import axios from "axios"
 import Link from "next/link"
-import {useRouter} from "next/navigation"
+import { useRouter } from "next/navigation"
 import React, { useState } from 'react';
 import toast from "react-hot-toast";
+import TextInput from "../components/InputForm";
+import SubmitButton from "../components/SubmitButton";
+import SignupFlexContainer from "../components/SignupFlexContainer";
 export default function LoginPage() {
     const router = useRouter();
     const [user, setUser] = useState({
-        username:"",
-        password:""
+        username: "",
+        password: ""
     })
     const [loading, setLoading] = useState(false);
     const onLogin = async () => {
@@ -17,70 +20,46 @@ export default function LoginPage() {
         let api_endpoint = process.env.NEXT_PUBLIC_API_URL?.concat("login");
         setLoading(true);
         axios
-            .post(api_endpoint!, user, {withCredentials:true, headers:{'Accept':'application/json',timeout:200}})
-            .then(function (response){
-                    toast.success("Login successful");
-                    console.log(response.data);
-                    router.push('/dashboard')   
-                    // toast.success("Logged in");
-                })
-            .catch(function (error){
+            .post(api_endpoint!, user, { withCredentials: true, headers: { 'Accept': 'application/json', timeout: 200 } })
+            .then(function (response) {
+                toast.success("Login successful");
+                console.log(response.data);
+                router.push('/dashboard')
+                // toast.success("Logged in");
+            })
+            .catch(function (error) {
                 toast.error("Login failed!")
                 toast(error.response.data);
             })
             .finally(() => {
-                 setLoading(false);
+                setLoading(false);
             })
     }
     return (
-        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-            <a href="home" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-                {/* <img className="w-8 h-8 mr-2" alt="logo" src={String(logo)}/> */}
-                Faketernos    
-            </a>
-            <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-                <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                    <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+            <SignupFlexContainer>
+                    <h1 className="text-4xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Login
                     </h1>
                     <form className="space-y-4 md:space-y-6">
-                        <div>
-                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Username</label>
-                            <input 
-                                id="username"
-                                type="text"
-                                value={user.username}
-                                onChange={(e) => setUser({...user, username: e.target.value})}
-                                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                placeholder="Username" 
-                                required/>
-                        </div>
-                        <div>
-                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                            <input 
-                                id="password"
-                                type="password"
-                                value={user.password}
-                                onChange={(e) => setUser({...user, password: e.target.value})} //onChange={(e) => setUser({...user, password: e.target.value})}
-                                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                placeholder="Password" 
-                                required/>
-                        </div>
-                        <button 
-                            type="button"
-                            onClick={onLogin} 
-                            className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                                {loading ? "Processing..." : "Login"}
-                        </button>
+
+                        <TextInput type="text" label="Your Username" value={user.username}
+                            onchange_func={(e: { target: { value: any; }; }) => setUser({ ...user, username: e.target.value })}>
+                        </TextInput>
+
+
+                        <TextInput type="password" label="Password" value={user.password}
+                            onchange_func={(e: { target: { value: any; }; }) => setUser({ ...user, password: e.target.value })}>
+                        </TextInput>
+
+                        <SubmitButton type="submit">
+                            Login
+                        </SubmitButton>
                         <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                             Don't have an account? <Link href="signup" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up here</Link>
                         </p>
                     </form>
-                </div>
-            </div>
-        </div>
+            </SignupFlexContainer>
     )
-
-    }
+}
 
 
