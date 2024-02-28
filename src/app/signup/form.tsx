@@ -12,7 +12,7 @@ interface IProps {
 export default function SignupForm({signup_func}: IProps) {
   return (
     
-    <form onSubmit={signup_func} className="space-y-4 md:space-y-6">
+    <form action={signup_func} className="space-y-4 md:space-y-6">
         {/* USERNAME INPUT */}
         <TextInput name="username" type="text" label="Your Username">
         </TextInput>
