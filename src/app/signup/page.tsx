@@ -20,7 +20,6 @@ export default async function SignupPage(request: NextRequest) {
     
 
     const onSignup = async (event: FormEvent<HTMLFormElement>) => {
-        "use server"
         event.preventDefault();
         const formData = new FormData(event.currentTarget)
         let data: LoginDetails = {
