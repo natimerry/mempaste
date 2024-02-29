@@ -24,9 +24,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <section className="bg-gray-50 h-svh md:h-screen dark:bg-zinc-950">
+            {children}
+            <Toaster />
+          </section>
         </ThemeProvider>
-        <Toaster />
       </body>
     </html>
   );
