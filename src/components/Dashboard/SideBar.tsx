@@ -11,20 +11,21 @@ import { ModeToggle } from "../ui/ThemeSwitcher"
 
 interface Props {
     set_view: Dispatch<SetStateAction<any>>,
+    set_toggle: Dispatch<SetStateAction<any>>,
     data: Array<Number>
 }
 
 
 export let visible_export = true;
-export default function SideBar({ set_view, data }: Props) {
+export default function SideBar({ set_view,set_toggle, data }: Props) {
 
     const [isVisible, setVisible] = useState(true);
+
 
     function toggleSidebar() {
         setVisible(!isVisible);
         visible_export = isVisible;
         console.log("TOGGLED TO " + visible_export)
-
     }
     const handle_click = (event: any) => {
         console.log(event.currentTarget.id);
@@ -35,7 +36,7 @@ export default function SideBar({ set_view, data }: Props) {
     }
     return (
         <div className={` items-center justify-center border-r p-1 ${!isVisible ? 'h-[40px] w-[40px]' : ''}`}>
-            <div className={`${!isVisible ? 'h-[40px] w-[40px]' : 'hidden'}`}>
+            <div className={`${!isVisible ? 'h-[20px] w-[20px]' : 'hidden'}`}>
                 <Button variant="outline" className="border-0 h-full" onClick={toggleSidebar}><Menu /></Button>
             </div>
             <div className={`flex flex-col h-svh transition-all ${isVisible ? 'h-full w-80 md:w-[400px]' : 'h-0 w-0 -m-10'}`}>
